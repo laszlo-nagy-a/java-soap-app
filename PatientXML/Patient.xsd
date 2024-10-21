@@ -3,13 +3,17 @@
 	targetNamespace="http://www.example.org/Patient"
 	xmlns:tns="http://www.example.org/Patient"
 	elementFormDefault="qualified">
-	<!-- elementFormDeafult -> qualified - ez esetben az ebből a sémából készült
-	elemek teljes fully qualified nevet kell megadni, tehát tns:patient -->
+	<!-- elementFormDeafult
+	 -> qualified - sémából készült elemek teljes fully qualified nevet kell megadni: tns:name
+	 -> unqualified - sémából készült elemek nem kell előtag: name
+  	-->
 	
 	<element name="patient" type="tns:Patient"/>
 	
 	<complexType name="Patient">
+	<!-- order függő sorrend  -->
 		<sequence>
+			<!-- ha nincs minOccures=0 vagy maxOccures (valamennyi), akkor 1x jelenik meg -->
 			<element name="id" type="tns:ID"/>
 			<element name="name" type="tns:String15Chars"/>
 			<element name="age" type="int"/>
@@ -19,19 +23,21 @@
 			<element name="phone" type="string"/>
 			<element name="payment" type="tns:PaymentType"/>
 		</sequence>
+				
+		<attribute name="id" type="tns:ID"/>
 	</complexType>
 	
 	<simpleType name ="ID">
 		<restriction base="int">
-		<pattern value="[0-9]*"></pattern></restriction>
+			<pattern value="[0-9]*"></pattern>
+		</restriction>
 	</simpleType>
 	
 	<complexType name="PaymentType">
 	<!-- Elég ha az egyik megjelenik, a kettő közül validációkor -->
 		<choice>
 			<element name="cash" type="int"/>
-			<element name="insurance" type="tns:Insurance"/>
-			
+			<element name="insurance" type="tns:Insurance"/>	
 		</choice>
 	</complexType>
 	
