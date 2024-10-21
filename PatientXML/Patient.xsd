@@ -3,6 +3,8 @@
 	targetNamespace="http://www.example.org/Patient"
 	xmlns:tns="http://www.example.org/Patient"
 	elementFormDefault="qualified">
+	<!-- elementFormDeafult -> qualified - ez esetben az ebből a sémából készült
+	elemek teljes fully qualified nevet kell megadni, tehát tns:patient -->
 	
 	<element name="patient" type="tns:Patient"/>
 	
@@ -15,6 +17,7 @@
 			<element name="email" type="string"/>
 			<element name="gender" type="tns:Gender"/>
 			<element name="phone" type="string"/>
+			<element name="payment" type="tns:PaymentType"/>
 		</sequence>
 	</complexType>
 	
@@ -22,6 +25,23 @@
 		<restriction base="int">
 		<pattern value="[0-9]*"></pattern></restriction>
 	</simpleType>
+	
+	<complexType name="PaymentType">
+	<!-- Elég ha az egyik megjelenik, a kettő közül validációkor -->
+		<choice>
+			<element name="cash" type="int"/>
+			<element name="insurance" type="tns:Insurance"/>
+			
+		</choice>
+	</complexType>
+	
+	<complexType name="Insurance">
+	<!-- Az összesnek meg kell jelennie, order független -->
+		<all>
+			<element name="provider" type="string"/>
+			<element name="limit" type="int"/>
+		</all>
+	</complexType>
 	
 	<simpleType name="String15Chars">
 		<restriction base="string">
@@ -35,5 +55,6 @@
 			<enumeration value="F"></enumeration>
 		</restriction>
 	</simpleType>
+	
 	
 </schema>
