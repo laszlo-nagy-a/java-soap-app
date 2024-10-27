@@ -88,7 +88,7 @@
 			<wsdl:input name="getOrdersRequest">
 				<soap:body use="literal" />
 			</wsdl:input>
-			<wsdl:output name="getOrdersResposne">
+			<wsdl:output name="getOrdersResponse">
 				<soap:body use="literal" />
 			</wsdl:output>
 		</wsdl:operation>
@@ -98,7 +98,7 @@
 			<wsdl:input name="createOrdersRequest">
 				<soap:body use="literal" />
 			</wsdl:input>
-			<wsdl:output name="createOrdersResposne">
+			<wsdl:output name="createOrdersResponse">
 				<soap:body use="literal" />
 			</wsdl:output>
 		</wsdl:operation>
