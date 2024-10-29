@@ -38,6 +38,7 @@ public class CustomerOrdersWsImpl implements CustomerOrdersPortType{
     }
 
 
+
     @Override
     public GetOrdersResponse getOrders(GetOrdersRequest request) {
         BigInteger customerId = request.getCustomerId();
@@ -62,4 +63,22 @@ public class CustomerOrdersWsImpl implements CustomerOrdersPortType{
 
          return response;
     }
+
+    @Override
+    public DeleteOrderResponse deleteOrders(DeleteOrderRequest request) {
+        BigInteger customerId = request.getCustomerId();
+        DeleteOrderResponse deleteOrderResponse = new DeleteOrderResponse();
+
+        if(customerId.longValueExact() <= 0) {
+            deleteOrderResponse.setResult(false);
+            return deleteOrderResponse;
+        }
+
+        List<Order> orders = customerOrders.get(customerId);
+        Order orderToDelete = orders.get((request.getOrder().intValue()-1));
+        deleteOrderResponse.setResult(orders.remove(orderToDelete));
+
+        return deleteOrderResponse;
+    }
+
 }
